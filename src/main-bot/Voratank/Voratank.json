@@ -1,0 +1,10 @@
+{
+  "name": "Voratank",
+  "version": "1.0",
+  "authors": ["12821046"],
+  "description": "Bot bergerak menyesuaikan dengan event yang terjadi, greedy fire",
+  "homepage": "",
+  "countryCodes": ["id"],
+  "platform": ".Net 9.0",
+  "programmingLang": "C# 9.0"
+}
