@@ -818,31 +818,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Fardhan\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Jonathan\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\STIMA\\tubes_1\\starter_pack\\tubes1-if2211-starter-pack-1.0\\sample-bots-csharp-0.30.0\\Voratank\\Voratank.csproj",
+      "projectUniqueName": "D:\\Programs\\Tubes1_Voratank\\src\\main-bot\\Voratank\\Voratank.csproj",
       "projectName": "Voratank",
-      "projectPath": "D:\\STIMA\\tubes_1\\starter_pack\\tubes1-if2211-starter-pack-1.0\\sample-bots-csharp-0.30.0\\Voratank\\Voratank.csproj",
-      "packagesPath": "C:\\Users\\Fardhan\\.nuget\\packages\\",
-      "outputPath": "D:\\STIMA\\tubes_1\\starter_pack\\tubes1-if2211-starter-pack-1.0\\sample-bots-csharp-0.30.0\\Voratank\\obj\\",
+      "projectPath": "D:\\Programs\\Tubes1_Voratank\\src\\main-bot\\Voratank\\Voratank.csproj",
+      "packagesPath": "C:\\Users\\Jonathan\\.nuget\\packages\\",
+      "outputPath": "D:\\Programs\\Tubes1_Voratank\\src\\main-bot\\Voratank\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Fardhan\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Jonathan\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -892,7 +885,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

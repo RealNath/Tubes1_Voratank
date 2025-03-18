@@ -1,0 +1,10 @@
+{
+  "name": "Voratank",
+  "version": "1.0",
+  "authors": ["12821046","13622076","13523132"],
+  "description": "",
+  "homepage": "",
+  "countryCodes": ["id"],
+  "platform": ".Net 9.0",
+  "programmingLang": "C#"
+}

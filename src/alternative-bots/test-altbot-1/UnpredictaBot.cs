@@ -1,0 +1,156 @@
+﻿using System;
+using System.Drawing;
+using Robocode.TankRoyale.BotApi;
+using Robocode.TankRoyale.BotApi.Events;
+
+public class Voratank : Bot {   
+	int turnDIrection = 1; // Arah putar radar
+	int moveDirection = 1;
+	int oscillationCounter = 0; // Menghitung osilasi
+	bool justFired = false;
+
+	const double OPTIMAL_DISTANCE = 200;
+	const double CLOSE_RANGE = 200; // Jarak dekat
+	const double MEDIUM_RANGE = 400; // Jarak menengah
+	const double WALL_MARGIN = 50;
+
+    /* A bot that drives forward and backward, and fires a bullet */
+    static void Main(string[] args) {
+        new Voratank().Start();
+    }
+
+    Voratank() : base(BotInfo.FromFile("test-altbot-1.json")) { }
+
+    public override void Run() {
+        // Warna body, gun, dan radar
+        BodyColor = Color.Gray;
+		TurretColor = Color.Blue;
+		RadarColor = Color.Green;
+		
+		AdjustGunForBodyTurn = true;    // Gun bergerak secara independen terhadap body
+		AdjustRadarForGunTurn = true;   // Radar bergerak secara independen terhadap Gun
+		AdjustRadarForBodyTurn = true;  // Radar bergerak secara independen terhadap body
+
+        while (IsRunning) {
+			avoidWall();
+			
+			TurnRadarLeft(90*turnDIrection);
+			oscillationCounter++;
+			if (oscillationCounter == 4) {
+				oscillationCounter = 0;
+				turnDIrection *= -1;
+			}
+        }
+    }
+
+	// Greedy patrol that prioritizes staying away from walls
+    private void avoidWall() {
+        // Ketika dekat dengan dinding -> arahkan ke tengah arena -> maju
+        if (X < WALL_MARGIN || X > ArenaWidth - WALL_MARGIN ||
+            Y < WALL_MARGIN || Y > ArenaHeight - WALL_MARGIN) {
+            double angleToCenter = DirectionTo(ArenaWidth / 2, ArenaHeight / 2);
+            double turnAngle = NormalizeRelativeAngle(angleToCenter - Direction);
+
+            TurnRight(turnAngle);
+            Forward(100);
+            moveDirection *= -1;
+        } 
+        else if (!justFired) {
+            TurnLeft(45);
+            Forward(80 * moveDirection);
+        }
+        
+        justFired = false;
+    }
+
+    // bot lawan terdeteksi -> arahkan ke bot tersebut -> ukur kecepatannya -> tembak
+	public override void OnScannedBot(ScannedBotEvent e) {
+        ToTarget(e.X, e.Y);
+        Stop(true);
+        
+        double firePower;
+        if (Math.Abs(e.Speed) < 2) firePower = 4.0;
+        else if (Math.Abs(e.Speed) < 5) firePower = 2.0;
+        else firePower = 1.0;
+        
+        if (Energy < 20) firePower = 1.0;
+
+        Fire(firePower);
+        
+        TurnRadarRight(30 * turnDIrection);
+        turnDIrection *= -1;
+        
+        Resume();
+        justFired = true;
+    }
+
+    // bot menabrak bot lawan -> Arahkan peluru ke bot lawan -> tembak -> pindah posisi
+    public override void OnHitBot(HitBotEvent e) {
+        ToTarget(e.X, e.Y);
+        
+        Stop(true);
+        Fire(4.0);
+        
+        // Tegak lurus
+        double perpendicular = NormalizeRelativeAngle(90 - DirectionTo(e.X, e.Y));
+        TurnLeft(perpendicular);
+        MaxSpeed = 5;
+        Forward(100);
+        
+        Resume();
+        justFired = true;
+    }
+
+    // bot menabrak dinding -> putar bot -> maju 100 langkah
+    public override void OnHitWall(HitWallEvent e) {
+        double turnAngle = 90 + (Energy % 70); // random berdasarkan energy
+        TurnLeft(turnAngle);
+        Forward(100);
+        moveDirection *= -1;
+    }
+
+   	// terkena peluru dari bot lain -> putar ke arah peluru tersebut, tembak -> pindah posisi
+    public override void OnHitByBullet(HitByBulletEvent e) {
+        ToTarget(e.Bullet.X, e.Bullet.Y);
+        Fire(1.5);
+        
+        // menghindar tegak lurus terhadap arah peluru
+        double dodgeAngle = NormalizeRelativeAngle(90 - (Direction - e.Bullet.Direction));
+        TurnRight(dodgeAngle);
+        Forward(80);
+        
+        justFired = true;
+    }
+    
+    // peluru menabrak dinding -> Putar radar 60 derajat
+    public override void OnBulletHitWall(BulletHitWallEvent e) {
+        TurnRadarRight(60);
+    }
+    
+    // peluru berhasil mengenai bot lain -> Arahkan kembali ke arah peluru, tembak lagi
+    public override void OnBulletHit(BulletHitBotEvent e) {
+        ToTarget(e.Bullet.X, e.Bullet.Y);
+        Fire(Math.Min(e.Bullet.Power + 1, 3.0));
+        
+        justFired = true;
+    }
+
+	// ada yang mati -> Rescan
+    public override void OnBotDeath(BotDeathEvent e) {
+        Rescan();
+    }
+    
+    // setelah menembak -> langsung pindah tempat
+    public override void OnBulletFired(BulletFiredEvent e) {
+        TurnLeft(35 + (int)(Energy % 30)); // random berdasarkan energy
+        Forward(70);
+        
+        justFired = true;
+    }
+    
+    private void ToTarget(double x, double y) {
+        var direction = DirectionTo(x, y);
+        var gunBear = NormalizeRelativeAngle(direction - GunDirection);
+        TurnGunRight(gunBear);
+    }
+}
