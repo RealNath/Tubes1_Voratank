@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Programs\\Tubes1_Voratank\\src\\alternative-bots\\test-altbot-1\\UnpredictaBot.csproj": {}
+    "D:\\Programs\\Tubes1_Voratank\\src\\alternative-bots\\UnpredictaBot\\UnpredictaBot.csproj": {}
   },
   "projects": {
-    "D:\\Programs\\Tubes1_Voratank\\src\\alternative-bots\\test-altbot-1\\UnpredictaBot.csproj": {
+    "D:\\Programs\\Tubes1_Voratank\\src\\alternative-bots\\UnpredictaBot\\UnpredictaBot.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Programs\\Tubes1_Voratank\\src\\alternative-bots\\test-altbot-1\\UnpredictaBot.csproj",
+        "projectUniqueName": "D:\\Programs\\Tubes1_Voratank\\src\\alternative-bots\\UnpredictaBot\\UnpredictaBot.csproj",
         "projectName": "UnpredictaBot",
-        "projectPath": "D:\\Programs\\Tubes1_Voratank\\src\\alternative-bots\\test-altbot-1\\UnpredictaBot.csproj",
+        "projectPath": "D:\\Programs\\Tubes1_Voratank\\src\\alternative-bots\\UnpredictaBot\\UnpredictaBot.csproj",
         "packagesPath": "C:\\Users\\Jonathan\\.nuget\\packages\\",
-        "outputPath": "D:\\Programs\\Tubes1_Voratank\\src\\alternative-bots\\test-altbot-1\\obj\\",
+        "outputPath": "D:\\Programs\\Tubes1_Voratank\\src\\alternative-bots\\UnpredictaBot\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Jonathan\\AppData\\Roaming\\NuGet\\NuGet.Config"
