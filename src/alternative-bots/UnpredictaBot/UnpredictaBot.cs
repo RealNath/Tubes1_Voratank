@@ -3,8 +3,8 @@ using System.Drawing;
 using Robocode.TankRoyale.BotApi;
 using Robocode.TankRoyale.BotApi.Events;
 
-public class Voratank : Bot {   
-	int turnDIrection = 1; // Arah putar radar
+public class UnpredictaBot : Bot {   
+	int turnDirection = 1; // Arah putar radar
 	int moveDirection = 1;
 	int oscillationCounter = 0; // Menghitung osilasi
 	bool justFired = false;
@@ -16,10 +16,10 @@ public class Voratank : Bot {
 
     /* A bot that drives forward and backward, and fires a bullet */
     static void Main(string[] args) {
-        new Voratank().Start();
+        new UnpredictaBot().Start();
     }
 
-    Voratank() : base(BotInfo.FromFile("test-altbot-1.json")) { }
+    UnpredictaBot() : base(BotInfo.FromFile("UnpredictaBot.json")) { }
 
     public override void Run() {
         // Warna body, gun, dan radar
@@ -34,11 +34,11 @@ public class Voratank : Bot {
         while (IsRunning) {
 			avoidWall();
 			
-			TurnRadarLeft(90*turnDIrection);
+			TurnRadarLeft(90*turnDirection);
 			oscillationCounter++;
 			if (oscillationCounter == 4) {
 				oscillationCounter = 0;
-				turnDIrection *= -1;
+				turnDirection *= -1;
 			}
         }
     }
@@ -77,8 +77,8 @@ public class Voratank : Bot {
 
         Fire(firePower);
         
-        TurnRadarRight(30 * turnDIrection);
-        turnDIrection *= -1;
+        TurnRadarRight(30 * turnDirection);
+        turnDirection *= -1;
         
         Resume();
         justFired = true;
