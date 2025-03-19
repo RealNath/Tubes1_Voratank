@@ -65,8 +65,8 @@ public class UnpredictaBot : Bot {
 
     // bot lawan terdeteksi -> arahkan ke bot tersebut -> ukur kecepatannya -> tembak
 	public override void OnScannedBot(ScannedBotEvent e) {
-        ToTarget(e.X, e.Y);
-        Stop(true);
+        var gunBear = GunBearingTo(e.X, e.Y);
+        TurnGunLeft(gunBear);
         
         double firePower;
         if (Math.Abs(e.Speed) < 2) firePower = 4.0;
@@ -80,16 +80,18 @@ public class UnpredictaBot : Bot {
         TurnRadarRight(30 * turnDirection);
         turnDirection *= -1;
         
-        Resume();
         justFired = true;
+
+        if (gunBear == 0) Rescan();
     }
 
     // bot menabrak bot lawan -> Arahkan peluru ke bot lawan -> tembak -> pindah posisi
     public override void OnHitBot(HitBotEvent e) {
-        ToTarget(e.X, e.Y);
+        var gunBear = GunBearingTo(e.X, e.Y);
+        TurnGunLeft(gunBear);
         
         Stop(true);
-        Fire(4.0);
+        Fire(Math.Min(2.5, Energy-0.1));
         
         // Tegak lurus
         double perpendicular = NormalizeRelativeAngle(90 - DirectionTo(e.X, e.Y));
@@ -111,13 +113,15 @@ public class UnpredictaBot : Bot {
 
    	// terkena peluru dari bot lain -> putar ke arah peluru tersebut, tembak -> pindah posisi
     public override void OnHitByBullet(HitByBulletEvent e) {
-        ToTarget(e.Bullet.X, e.Bullet.Y);
+        var gunBear = GunBearingTo(e.Bullet.X, e.Bullet.Y);
+        TurnGunLeft(gunBear);
         Fire(1.5);
         
         // menghindar tegak lurus terhadap arah peluru
         double dodgeAngle = NormalizeRelativeAngle(90 - (Direction - e.Bullet.Direction));
         TurnRight(dodgeAngle);
-        Forward(80);
+        MaxSpeed = 5;
+        Forward(100);
         
         justFired = true;
     }
@@ -129,7 +133,8 @@ public class UnpredictaBot : Bot {
     
     // peluru berhasil mengenai bot lain -> Arahkan kembali ke arah peluru, tembak lagi
     public override void OnBulletHit(BulletHitBotEvent e) {
-        ToTarget(e.Bullet.X, e.Bullet.Y);
+        var gunBear = GunBearingTo(e.Bullet.X, e.Bullet.Y);
+        TurnGunLeft(gunBear);
         Fire(Math.Min(e.Bullet.Power + 1, 3.0));
         
         justFired = true;
@@ -148,9 +153,9 @@ public class UnpredictaBot : Bot {
         justFired = true;
     }
     
-    private void ToTarget(double x, double y) {
-        var direction = DirectionTo(x, y);
-        var gunBear = NormalizeRelativeAngle(direction - GunDirection);
-        TurnGunLeft(gunBear);
-    }
+    // private void ToTarget(double x, double y) {
+    //     var direction = DirectionTo(x, y);
+    //     var gunBear = NormalizeRelativeAngle(direction - GunDirection);
+    //     TurnGunLeft(gunBear);
+    // }
 }
