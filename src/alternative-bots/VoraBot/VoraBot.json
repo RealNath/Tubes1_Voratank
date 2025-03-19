@@ -1,0 +1,11 @@
+{
+    "name": "VoraBot",
+    "version": "1.0",
+    "authors": ["Ziyan Agil"],
+    "description": "Bot VoraBot menggunakan strategi greedy untuk mendominasi arena.",
+    "homepage": "",
+    "countryCodes": ["id"],
+    "platform": ".Net 6.0",
+    "programmingLang": "C# 10.0"
+  }
+  
