@@ -24,7 +24,7 @@ public class UnpredictaBot : Bot {
     public override void Run() {
         // Warna body, gun, dan radar
         BodyColor = Color.Gray;
-		TurretColor = Color.Blue;
+		TurretColor = Color.Yellow;
 		RadarColor = Color.Green;
 		
 		AdjustGunForBodyTurn = true;    // Gun bergerak secara independen terhadap body
