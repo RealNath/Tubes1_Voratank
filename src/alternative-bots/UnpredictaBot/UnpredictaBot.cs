@@ -42,9 +42,8 @@ public class UnpredictaBot : Bot {
         }
     }
 
-	// Greedy patrol that prioritizes staying away from walls
+	// Ketika dekat dengan dinding -> arahkan ke tengah arena -> maju
     private void avoidWall() {
-        // Ketika dekat dengan dinding -> arahkan ke tengah arena -> maju
         if (X < WALL_MARGIN || X > ArenaWidth - WALL_MARGIN ||
             Y < WALL_MARGIN || Y > ArenaHeight - WALL_MARGIN) {
             double angleToCenter = DirectionTo(ArenaWidth / 2, ArenaHeight / 2);
@@ -76,8 +75,8 @@ public class UnpredictaBot : Bot {
 
         Fire(firePower);
         
-        TurnRadarRight(30 * turnDirection);
-        turnDirection *= -1;
+        TurnRadarRight(30 * turnDirection); //lebih baik dihapus kah??
+        turnDirection *= -1; //lebih baik dihapus kah??
         
         justFired = true;
 
@@ -90,7 +89,9 @@ public class UnpredictaBot : Bot {
         TurnGunLeft(gunBear);
         
         Stop(true);
-        Fire(Math.Min(2.5, Energy-0.1));
+        if (Energy < 2.5) Fire(0.2);
+        else Fire (2.5);
+        // Fire(Math.Min(2.5, Energy-0.1));
         
         // Tegak lurus
         double perpendicular = NormalizeRelativeAngle(90 - DirectionTo(e.X, e.Y));
