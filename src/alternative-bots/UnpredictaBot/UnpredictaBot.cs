@@ -14,7 +14,6 @@ public class UnpredictaBot : Bot {
 	const double MEDIUM_RANGE = 400; // Jarak menengah
 	const double WALL_MARGIN = 50;
 
-    /* A bot that drives forward and backward, and fires a bullet */
     static void Main(string[] args) {
         new UnpredictaBot().Start();
     }
