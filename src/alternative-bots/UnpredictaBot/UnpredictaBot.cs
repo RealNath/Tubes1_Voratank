@@ -75,9 +75,6 @@ public class UnpredictaBot : Bot {
 
         Fire(firePower);
         
-        TurnRadarRight(30 * turnDirection); //lebih baik dihapus kah??
-        turnDirection *= -1; //lebih baik dihapus kah??
-        
         justFired = true;
 
         if (gunBear == 0) Rescan();
