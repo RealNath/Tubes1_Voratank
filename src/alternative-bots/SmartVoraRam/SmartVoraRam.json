@@ -1,0 +1,10 @@
+{
+  "name": "Smart Vora Ram",
+  "version": "1.0",
+  "authors": ["12821046","13622076","13523132"],
+  "description": "Sebuah bot yang akan menabrak bot lain dengan keadaan tertentu.",
+  "homepage": "",
+  "countryCodes": ["id"],
+  "platform": ".Net 9.0",
+  "programmingLang": "C# 10.0"
+}
