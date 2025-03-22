@@ -7,6 +7,7 @@ public class AltVoraBot : Bot
     private bool trackingTarget = false;
     private double lastTargetX, lastTargetY;
     private int movementDirection = 1;
+    private int radarDirection = 1;
     static void Main()
     {
         new AltVoraBot().Start();
@@ -26,23 +27,10 @@ public class AltVoraBot : Bot
 
         while (IsRunning)
         {
-            if (!trackingTarget)
-            {
-                TurnRadarRight(360);
-            }
-            else
-            {
-                TrackAndAttack();
-            }
+            TurnRadarRight(270 * radarDirection);
+            TurnLeft(45);
+            Forward(80);
         }
-    }
-    private void TrackAndAttack()
-    {
-        ToTarget(lastTargetX, lastTargetY);
-        Stop(true);
-        Fire(3);
-        ZigZagMovement();
-        Resume();
     }
     public override void OnScannedBot(ScannedBotEvent e)
     {
@@ -56,15 +44,9 @@ public class AltVoraBot : Bot
         double firePower = Math.Min(3, 500 / DistanceTo(lastTargetX, lastTargetY));
         Fire(firePower);
 
-        if (DistanceTo(lastTargetX, lastTargetY) > 100)
-        {
-            SetTurnRight(BearingTo(lastTargetX, lastTargetY));
-            SetForward(80);
-        }
-        else
-        {
-            ZigZagMovement();
-        }
+        TurnRadarLeft(30 * radarDirection);
+        radarDirection *= -1;
+
         Resume();
     }
     public override void OnHitBot(HitBotEvent e)
@@ -74,13 +56,13 @@ public class AltVoraBot : Bot
         Fire(3);
         Back(50);
         Resume();
-    }   
+    }
     public override void OnHitWall(HitWallEvent e)
     {
         Back(60);
         TurnRight(90);
         Forward(100);
-    } 
+    }
     public override void OnHitByBullet(HitByBulletEvent e)
     {
         ToTarget(e.Bullet.X, e.Bullet.Y);
