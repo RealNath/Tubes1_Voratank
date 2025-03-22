@@ -144,10 +144,10 @@ public class VoraBot : Bot
     {
         for (int i = 0; i < 3; i++)
         {
-            SetTurnRight(40 * movementDirection);
-            SetForward(40);
-            SetTurnLeft(40 * movementDirection);
-            SetForward(40);
+            TurnRight(40*movementDirection);
+            Forward(40);
+            TurnLeft(40*movementDirection);
+            Forward(40);
         }
         // Ubah arah gerakan setelah zig-zag selesai
         movementDirection *= -1;
