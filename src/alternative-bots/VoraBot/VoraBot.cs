@@ -2,14 +2,17 @@ using System;
 using System.Drawing;
 using Robocode.TankRoyale.BotApi;
 using Robocode.TankRoyale.BotApi.Events;
-public class VoraBot : Bot
+public class AltVoraBot : Bot
 {
-    int turnDirect = 1; 
+    private bool trackingTarget = false;
+    private double lastTargetX, lastTargetY;
+    private int movementDirection = 1;
+    private int radarDirection = 1;
     static void Main()
     {
-        new VoraBot().Start();
+        new AltVoraBot().Start();
     }
-    public VoraBot() : base(BotInfo.FromFile("VoraBot.json")) { }
+    public AltVoraBot() : base(BotInfo.FromFile("AltVoraBot.json")) { }
     public override void Run()
     {
         BodyColor = Color.Red;
@@ -24,44 +27,48 @@ public class VoraBot : Bot
 
         while (IsRunning)
         {
-            TurnRadarRight(270 * turnDirect);
+            TurnRadarRight(270 * radarDirection);
             TurnLeft(45);
             Forward(80);
         }
     }
     public override void OnScannedBot(ScannedBotEvent e)
     {
-        ToTarget(e.X, e.Y);
+        trackingTarget = true;
+        lastTargetX = e.X;
+        lastTargetY = e.Y;
+
+        ToTarget(lastTargetX, lastTargetY);
         Stop(true);
 
-        double firePower = Math.Min(3, 500 / DistanceTo(e.X, e.Y));
+        double firePower = Math.Min(3, 500 / DistanceTo(lastTargetX, lastTargetY));
         Fire(firePower);
-        TurnRadarLeft(30 * turnDirect);
-        turnDirect *= -1;
+
+        TurnRadarLeft(30 * radarDirection);
+        radarDirection *= -1;
+
         Resume();
     }
     public override void OnHitBot(HitBotEvent e)
     {
         ToTarget(e.X, e.Y);
         Stop(true);
-        Fire(2.5);
-        TurnLeft(NormalizeBearing(90 - DirectionTo(e.X, e.Y)));
-        Forward(90);
+        Fire(3);
+        Back(50);
         Resume();
     }
     public override void OnHitWall(HitWallEvent e)
     {
-        Back(50); 
-        TurnRight(60); 
-        Forward(80); 
-        TurnLeft(60); 
+        Back(60);
+        TurnRight(90);
+        Forward(100);
     }
     public override void OnHitByBullet(HitByBulletEvent e)
     {
         ToTarget(e.Bullet.X, e.Bullet.Y);
-        Fire(1);
-        TurnRight(NormalizeBearing(90 - (Direction - e.Bullet.Direction)));
-        Forward(60);
+        Fire(2);
+        trackingTarget = false;
+        ZigZagMovement();
     }
     public override void OnBulletHitWall(BulletHitWallEvent e)
     {
@@ -71,16 +78,17 @@ public class VoraBot : Bot
     public override void OnBulletHit(BulletHitBotEvent e)
     {
         ToTarget(e.Bullet.X, e.Bullet.Y);
-
-        double distance = DistanceTo(e.Bullet.X, e.Bullet.Y);
-        double firePower = Math.Min(3, Math.Max(0.1, 500 / distance));
-
-        Fire(firePower);
+        Fire(3);
     }
     public override void OnBulletFired(BulletFiredEvent e)
     {
-        TurnLeft(30);
-        Forward(70);
+        TurnLeft(20);
+        Forward(50);
+    }
+    public override void OnBotDeath(BotDeathEvent e)
+    {
+        trackingTarget = false;
+        Rescan();
     }
     private void ToTarget(double x, double y)
     {
@@ -94,8 +102,15 @@ public class VoraBot : Bot
         while (angle < -180) angle += 360;
         return angle;
     }
-        public override void OnBotDeath(BotDeathEvent e)
+    private void ZigZagMovement()
     {
-        Rescan();
+        for (int i = 0; i < 3; i++)
+        {
+            SetTurnRight(40 * movementDirection);
+            SetForward(60);
+            SetTurnLeft(40 * movementDirection);
+            SetForward(60);
+        }
+        movementDirection *= -1;
     }
 }
