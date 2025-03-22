@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("UnpredictaBot")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f8c796f26031120459cbef2e4a691d2fbf820410")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4fe31de152a366b0721b787ced44e3868d8db9d1")]
 [assembly: System.Reflection.AssemblyProductAttribute("UnpredictaBot")]
 [assembly: System.Reflection.AssemblyTitleAttribute("UnpredictaBot")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

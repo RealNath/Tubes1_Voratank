@@ -149,10 +149,4 @@ public class UnpredictaBot : Bot {
         
         justFired = true;
     }
-    
-    // private void ToTarget(double x, double y) {
-    //     var direction = DirectionTo(x, y);
-    //     var gunBear = NormalizeRelativeAngle(direction - GunDirection);
-    //     TurnGunLeft(gunBear);
-    // }
 }
