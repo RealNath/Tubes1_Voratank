@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Voratank")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4fe31de152a366b0721b787ced44e3868d8db9d1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c39c460f2fc77de85ce305fb539c71cdd3a7dfac")]
 [assembly: System.Reflection.AssemblyProductAttribute("Voratank")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Voratank")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
