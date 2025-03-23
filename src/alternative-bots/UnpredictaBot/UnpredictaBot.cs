@@ -62,6 +62,14 @@ public class UnpredictaBot : Bot {
         justFired = false;
     }
 
+    // bot menabrak dinding -> putar bot -> maju 100 langkah
+    public override void OnHitWall(HitWallEvent e) {
+        double turnAngle = 90 + (Energy % 70); // random berdasarkan energy
+        TurnLeft(turnAngle);
+        Forward(100);
+        moveDirection *= -1;
+    }
+
     // bot lawan terdeteksi -> arahkan ke bot tersebut -> ukur kecepatannya -> tembak
 	public override void OnScannedBot(ScannedBotEvent e) {
         var gunBear = GunBearingTo(e.X, e.Y);
@@ -101,14 +109,6 @@ public class UnpredictaBot : Bot {
         justFired = true;
     }
 
-    // bot menabrak dinding -> putar bot -> maju 100 langkah
-    public override void OnHitWall(HitWallEvent e) {
-        double turnAngle = 90 + (Energy % 70); // random berdasarkan energy
-        TurnLeft(turnAngle);
-        Forward(100);
-        moveDirection *= -1;
-    }
-
    	// terkena peluru dari bot lain -> putar ke arah peluru tersebut, tembak -> pindah posisi
     public override void OnHitByBullet(HitByBulletEvent e) {
         var gunBear = GunBearingTo(e.Bullet.X, e.Bullet.Y);
@@ -137,7 +137,7 @@ public class UnpredictaBot : Bot {
         
         justFired = true;
     }
-    
+
     // setelah menembak -> langsung pindah tempat
     public override void OnBulletFired(BulletFiredEvent e) {
         TurnLeft(35 + (int)(Energy % 30)); // random berdasarkan energy
