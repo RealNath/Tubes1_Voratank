@@ -19,8 +19,8 @@ public class VoraBot : Bot
     {
         //Warna elemen-elemen pada bot
         BodyColor = Color.Red;
-        TurretColor = Color.Yellow;
-        RadarColor = Color.Green;
+        TurretColor = Color.Magenta;
+        RadarColor = Color.Lime;
         BulletColor = Color.White;
         ScanColor = Color.Cyan;
 
