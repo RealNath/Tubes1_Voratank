@@ -25,6 +25,7 @@ public class UnpredictaBot : Bot {
         BodyColor = Color.Gray;
 		TurretColor = Color.Yellow;
 		RadarColor = Color.Green;
+        BulletColor = Color.Khaki;
 		
 		AdjustGunForBodyTurn = true;    // Gun bergerak secara independen terhadap body
 		AdjustRadarForGunTurn = true;   // Radar bergerak secara independen terhadap Gun
@@ -136,11 +137,6 @@ public class UnpredictaBot : Bot {
         
         justFired = true;
     }
-
-	// ada yang mati -> Rescan
-    public override void OnBotDeath(BotDeathEvent e) {
-        Rescan();
-    }
     
     // setelah menembak -> langsung pindah tempat
     public override void OnBulletFired(BulletFiredEvent e) {
@@ -149,4 +145,11 @@ public class UnpredictaBot : Bot {
         
         justFired = true;
     }
+
+	// ada yang mati -> Rescan
+    public override void OnBotDeath(BotDeathEvent e) {
+        Rescan();
+    }
+    
+    
 }
