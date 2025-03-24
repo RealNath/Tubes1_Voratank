@@ -23,6 +23,10 @@ public class SmartVoraRam : Bot
         BodyColor = Color.Blue;
 		TurretColor = Color.Red;
 		RadarColor = Color.Yellow;
+		BulletColor = Color.DarkGray;
+		ScanColor = Color.Cyan;
+		TracksColor = Color.DarkBlue;
+		GunColor = Color.Black;
 
         while (IsRunning)
         {

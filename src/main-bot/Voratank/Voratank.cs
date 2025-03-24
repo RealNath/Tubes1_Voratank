@@ -21,6 +21,10 @@ public class Voratank : Bot
         BodyColor = Color.Gray;
 		TurretColor = Color.Blue;
 		RadarColor = Color.Yellow;
+		BulletColor = Color.Gray;
+		ScanColor = Color.Brown;
+		TracksColor = Color.DarkGray;
+		GunColor = Color.Cyan;
 		
 		AdjustGunForBodyTurn = true;    // Gun bergerak secara independen terhadap body
 		AdjustRadarForGunTurn = true;   // Radar bergerak secara independen terhadap Gun

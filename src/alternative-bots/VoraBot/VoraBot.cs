@@ -23,6 +23,8 @@ public class VoraBot : Bot
         RadarColor = Color.Lime;
         BulletColor = Color.White;
         ScanColor = Color.Cyan;
+        TracksColor = Color.DarkRed;
+        GunColor = Color.RebeccaPurple;
 
         // Mengatur agar radar dan senjata bergerak secara independen dari body bot
         AdjustGunForBodyTurn = true;

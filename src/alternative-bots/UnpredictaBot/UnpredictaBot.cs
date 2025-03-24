@@ -26,6 +26,9 @@ public class UnpredictaBot : Bot {
 		TurretColor = Color.Yellow;
 		RadarColor = Color.Green;
         BulletColor = Color.Khaki;
+        ScanColor = Color.Aqua;
+        TracksColor = Color.DarkGray;
+        GunColor = Color.RebeccaPurple;
 		
 		AdjustGunForBodyTurn = true;    // Gun bergerak secara independen terhadap body
 		AdjustRadarForGunTurn = true;   // Radar bergerak secara independen terhadap Gun
