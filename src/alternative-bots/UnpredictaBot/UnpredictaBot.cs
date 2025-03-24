@@ -70,7 +70,7 @@ public class UnpredictaBot : Bot {
         moveDirection *= -1;
     }
 
-    // bot lawan terdeteksi -> arahkan ke bot tersebut -> ukur kecepatannya -> tembak
+    // bot musuh terdeteksi -> arahkan ke bot tersebut -> ukur kecepatannya -> kunci target dan tembak
 	public override void OnScannedBot(ScannedBotEvent e) {
         var gunBear = GunBearingTo(e.X, e.Y);
         TurnGunLeft(gunBear);
@@ -89,7 +89,7 @@ public class UnpredictaBot : Bot {
         if (gunBear == 0) Rescan();
     }
 
-    // bot menabrak bot lawan -> Arahkan peluru ke bot lawan -> tembak -> pindah posisi
+    // bot menabrak bot bot musuh -> Arahkan peluru ke bot musuh -> tembak -> pindah posisi
     public override void OnHitBot(HitBotEvent e) {
         var gunBear = GunBearingTo(e.X, e.Y);
         TurnGunLeft(gunBear);
